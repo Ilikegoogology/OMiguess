@@ -161,7 +161,7 @@ function loop(ms,off=0) {
   }
   if (game.autoLoop.succ >= 1000/(game.succAuto*succAutoMult*totalMult)) {
     if (game.autoLoop.lim >= 1000/(game.limAuto*limAutoMult*totalMult)) {
-      game.over = 0
+      game.over = 1000
       game.ord += Math.min(Math.floor(game.autoLoop.succ/(1000/(game.succAuto*succAutoMult*totalMult))),game.base*Math.floor(game.autoLoop.lim/(1000/(game.limAuto*limAutoMult*totalMult))))
       game.autoLoop.succ = game.autoLoop.succ % (1000/(game.succAuto*succAutoMult*totalMult))
       game.autoLoop.lim = game.autoLoop.lim % (1000/(game.limAuto*limAutoMult*totalMult))
@@ -281,7 +281,7 @@ function render() {
   }
   if (getFBps()<10&&game.canInf) {
     infinityButtonText=beautify(calcTotalOPGain())
-    if (get("infinityButton").innerHTML != "Infinity to gain " + infinityButtonText*4 + " Ordinal Points (I)") get("infinityButton").innerHTML = "Infinity to gain " + infinityButtonText + " Ordinal Points (I)"
+    if (get("infinityButton").innerHTML != "Infinity to gain " + infinityButtonText*400 + " Ordinal Points (I)") get("infinityButton").innerHTML = "Infinity to gain " + infinityButtonText + " Ordinal Points (I)"
     if (get("infinityButton2").innerHTML != "+" + infinityButtonText) get("infinityButton2").innerHTML = "+" + infinityButtonText
   } else {
     get("infinityButton").innerHTML = "Reach " + (game.leastBoost<=1.5?(game.leastBoost<=1.5?10:100):10240) +" to Infinity"
