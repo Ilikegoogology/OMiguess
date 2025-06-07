@@ -58,11 +58,11 @@ function increment(manmade=0) {
   if (manmade==0 || game.manualClicksLeft >= 0.5) {
     if (manmade==1 && (game.chal8 == 1 || game.challenge==6||game.challenge==7)) game.manualClicksLeft -= 1
     if (game.ord % game.base == game.base-1) {
-      game.over += 1000
+      game.over += 1000000
     } else {
-      game.ord += 1000
+      game.ord += 10000000
     }
-    clickCoolDown=2
+    clickCoolDown=0.01
   }
   if (manmade==1) render()
 }
@@ -131,7 +131,7 @@ function loop(ms,off=0) {
     game.incrementy = game.incrementy.add(getIncrementyRate(ms/2))
   }
   changeDynamic(ms)
-  if (game.dynamic<0) game.dynamic = 0
+  if (game.dynamic<0) game.dynamic =  100
   if (game.chal8==1) game.decrementy += getDecrementyRate(ms)
   if (game.leastBoost<=1.5&&game.limAuto==0) game.limAuto=1
   totalMult = factorMult*calcTotalMultWOFactor()
@@ -143,15 +143,15 @@ function loop(ms,off=0) {
   if ((game.succAuto < 10**265 || game.limAuto < 10**265) && !(game.ord>=3**27&&game.base<=3)) {
   if (game.succAuto*totalMult > 0) {
     game.autoLoop.succ += ms
-    if (game.autoLoop.succ >= 1000/(game.succAuto*succAutoMult*totalMult)) {
-      game.autoLoop.succ -= 1000/(game.succAuto*succAutoMult*totalMult)
+    if (game.autoLoop.succ >= 10000/(game.succAuto*succAutoMult*totalMult)) {
+      game.autoLoop.succ -= 10000/(game.succAuto*succAutoMult*totalMult)
       increment()
     }
   }
   if (game.limAuto*limAutoMult*totalMult > 0) {
     game.autoLoop.lim += ms
-    if (game.autoLoop.lim >= 1000/(game.limAuto*limAutoMult*totalMult)) {
-      game.autoLoop.lim -= 1000/(game.limAuto*limAutoMult*totalMult)
+    if (game.autoLoop.lim >= 10000/(game.limAuto*limAutoMult*totalMult)) {
+      game.autoLoop.lim -= 10000/(game.limAuto*limAutoMult*totalMult)
       maximize()
     }
   }
