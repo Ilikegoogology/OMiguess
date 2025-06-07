@@ -58,9 +58,9 @@ function increment(manmade=0) {
   if (manmade==0 || game.manualClicksLeft >= 0.5) {
     if (manmade==1 && (game.chal8 == 1 || game.challenge==6||game.challenge==7)) game.manualClicksLeft -= 1
     if (game.ord % game.base == game.base-1) {
-      game.over += 10
+      game.over += 1000
     } else {
-      game.ord += 10
+      game.ord += 1000
     }
     clickCoolDown=2
   }
