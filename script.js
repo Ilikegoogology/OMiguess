@@ -7,7 +7,7 @@ let ordMarks=[]
 let numMarks=[]
 setMarks()
 let clickCoolDown = 0
-let infinityButtonText = 0
+let infinityButtonText = 1000
 let game
 let factorShiftCosts=[200, 1000, 10000, 350000, 1e12, 1e21, 1e100, 1.095e272, Infinity]
 let factorCostExp=[2,2,2,3,3,6,30,100]
@@ -58,7 +58,7 @@ function increment(manmade=0) {
   if (manmade==0 || game.manualClicksLeft >= 0.5) {
     if (manmade==1 && (game.chal8 == 1 || game.challenge==6||game.challenge==7)) game.manualClicksLeft -= 1
     if (game.ord % game.base == game.base-1) {
-      game.over += 1
+      game.over += 10
     } else {
       game.ord += 1
     }
@@ -79,7 +79,7 @@ function maximize(manmade=0) {
     if (game.ord % (game.base**2) != 0) {
       game.ord += game.over
     }
-    game.over = 0
+    game.over = 100
     clickCoolDown=2
   }
   if (manmade==1) render()
@@ -281,19 +281,19 @@ function render() {
   }
   if (getFBps()<10&&game.canInf) {
     infinityButtonText=beautify(calcTotalOPGain())
-    if (get("infinityButton").innerHTML != "Infinity to gain " + infinityButtonText + " Ordinal Points (I)") get("infinityButton").innerHTML = "Infinity to gain " + infinityButtonText + " Ordinal Points (I)"
+    if (get("infinityButton").innerHTML != "Infinity to gain " + infinityButtonText*4 + " Ordinal Points (I)") get("infinityButton").innerHTML = "Infinity to gain " + infinityButtonText + " Ordinal Points (I)"
     if (get("infinityButton2").innerHTML != "+" + infinityButtonText) get("infinityButton2").innerHTML = "+" + infinityButtonText
   } else {
-    get("infinityButton").innerHTML = "Reach " + (game.leastBoost<=15?(game.leastBoost<=1.5?10:100):10240) +" to Infinity"
-    get("infinityButton2").innerHTML = "Reach " + (game.leastBoost<=15?(game.leastBoost<=1.5?10:100):10240) +" to Infinity"
+    get("infinityButton").innerHTML = "Reach " + (game.leastBoost<=1.5?(game.leastBoost<=1.5?10:100):10240) +" to Infinity"
+    get("infinityButton2").innerHTML = "Reach " + (game.leastBoost<=1.5?(game.leastBoost<=1.5?10:100):10240) +" to Infinity"
   }
   get("challengeSubTab").style.display=(game.upgrades.includes(4) ? "inline-block" : "none")
   get("incrementySubTab").style.display=(game.upgrades.includes(8) ? "inline-block" : "none")
   get("ordinalPointsDisplay").innerHTML = "You have " + beautify(game.OP) + " Ordinal Points"
   get("succAutoAmount").innerHTML = "You have " + logbeautify(game.succAuto) + " successor autoclickers, clicking the successor button " + (game.succAuto>10**265?logbeautify(game.succAuto):beautify(game.succAuto*totalMult*succAutoMult)) + " times per second" 
   get("limAutoAmount").innerHTML = "You have " + logbeautify(game.limAuto) + "  maximize autoclickers, clicking the maximize button " + (game.succAuto>10**265?logbeautify(game.succAuto):beautify(game.limAuto*totalMult*limAutoMult)) + " times per second"
-  get("buysucc").innerHTML = "Buy Successor Autobuyer for " + (game.challenge==1||game.challenge==7?(game.succAuto==1?"Infinity":"1.000e6"):beautify(Math.min(10**260+game.succAuto,100*2**game.succAuto))) + " OP"
-  get("buylim").innerHTML = "Buy Maximize Autobuyer for " + (game.challenge==1||game.challenge==7?(game.limAuto==1?"Infinity":"1.000e6"):beautify(Math.min(10**260+game.limAuto,100*2**game.limAuto))) + "  OP"
+  get("buysucc").innerHTML = "Buy Successor Autobuyer for " + (game.challenge==1||game.challenge==7?(game.succAuto==1?"Infinity":"1"):beautify(Math.min(10**260+game.succAuto,100*2**game.succAuto))) + " OP"
+  get("buylim").innerHTML = "Buy Maximize Autobuyer for " + (game.challenge==1||game.challenge==7?(game.limAuto==1?"Infinity":"1"):beautify(Math.min(10**260+game.limAuto,100*2**game.limAuto))) + "  OP"
   get("factorShift").innerHTML = "Factor Shift (" + game.factorShifts + "): Requires " + ((game.challenge==5||game.challenge==7) && game.factorShifts >= 2?"Infinity":(game.factorShifts==7?(game.boostUnlock?"Infinity":"Graham's number (g<sub>ψ(Ω<sup>Ω</sup>ω)</sub> (10))"):beautify(factorShiftCosts[game.factorShifts]))) +" OP"
   get("noFactors").style.display=(game.factors.length==0 ? "inline-block" : "none")
   get("factorList").style.display=(game.factors.length==0 ? "none" : "inline-block")
