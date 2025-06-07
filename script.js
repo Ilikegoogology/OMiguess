@@ -1,15 +1,15 @@
 //Yeah, I know it's pretty unorganized at the moment
 let factorMult = 1
 let bfactorMult = 1
-let succAutoMult = 1
-let limAutoMult = 1
+let succAutoMult = 100
+let limAutoMult = 100
 let ordMarks=[]
 let numMarks=[]
 setMarks()
 let clickCoolDown = 0
 let infinityButtonText = 1000
 let game
-let factorShiftCosts=[200, 1000, 10000, 350000, 1e12, 1e21, 1e100, 1.095e272, Infinity]
+let factorShiftCosts=[1, 1, 1, 1, 1, 1, 1, 1, Infinity]
 let factorCostExp=[2,2,2,3,3,6,30,100]
 const bupUpgradeCosts=[1,1,1,12,5,4,8,36,72,73,16,108,53,74,66,324,Infinity,Infinity,8e8,5e11,Infinity,Infinity,Infinity,Infinity]
 const slugMile=[10**10,20,15,12,10,1,-1]
@@ -60,7 +60,7 @@ function increment(manmade=0) {
     if (game.ord % game.base == game.base-1) {
       game.over += 10
     } else {
-      game.ord += 1
+      game.ord += 10
     }
     clickCoolDown=2
   }
@@ -292,8 +292,8 @@ function render() {
   get("ordinalPointsDisplay").innerHTML = "You have " + beautify(game.OP) + " Ordinal Points"
   get("succAutoAmount").innerHTML = "You have " + logbeautify(game.succAuto) + " successor autoclickers, clicking the successor button " + (game.succAuto>10**265?logbeautify(game.succAuto):beautify(game.succAuto*totalMult*succAutoMult)) + " times per second" 
   get("limAutoAmount").innerHTML = "You have " + logbeautify(game.limAuto) + "  maximize autoclickers, clicking the maximize button " + (game.succAuto>10**265?logbeautify(game.succAuto):beautify(game.limAuto*totalMult*limAutoMult)) + " times per second"
-  get("buysucc").innerHTML = "Buy Successor Autobuyer for " + (game.challenge==1||game.challenge==7?(game.succAuto==1?"Infinity":"1"):beautify(Math.min(10**260+game.succAuto,100*2**game.succAuto))) + " OP"
-  get("buylim").innerHTML = "Buy Maximize Autobuyer for " + (game.challenge==1||game.challenge==7?(game.limAuto==1?"Infinity":"1"):beautify(Math.min(10**260+game.limAuto,100*2**game.limAuto))) + "  OP"
+  get("buysucc").innerHTML = "Buy Successor Autobuyer for " + (game.challenge==1||game.challenge==7?(game.succAuto==1?"Infinity":"1"):beautify(Math.min(10**260+game.succAuto,1*2**game.succAuto))) + " OP"
+  get("buylim").innerHTML = "Buy Maximize Autobuyer for " + (game.challenge==1||game.challenge==7?(game.limAuto==1?"Infinity":"1"):beautify(Math.min(10**260+game.limAuto,1*2**game.limAuto))) + "  OP"
   get("factorShift").innerHTML = "Factor Shift (" + game.factorShifts + "): Requires " + ((game.challenge==5||game.challenge==7) && game.factorShifts >= 2?"Infinity":(game.factorShifts==7?(game.boostUnlock?"Infinity":"Graham's number (g<sub>ψ(Ω<sup>Ω</sup>ω)</sub> (10))"):beautify(factorShiftCosts[game.factorShifts]))) +" OP"
   get("noFactors").style.display=(game.factors.length==0 ? "inline-block" : "none")
   get("factorList").style.display=(game.factors.length==0 ? "none" : "inline-block")
